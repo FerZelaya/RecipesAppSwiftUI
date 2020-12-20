@@ -1,21 +1,24 @@
 //
-//  ContentView.swift
+//  MainView.swift
 //  Re-C-Ps
 //
-//  Created by Alcides Zelaya on 12/13/20.
+//  Created by Alcides Zelaya on 12/18/20.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct MainView: View {
+    init() {
+        UITabBar.appearance().isHidden = true
+    }
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        TabBarView()
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        MainView()
     }
 }
