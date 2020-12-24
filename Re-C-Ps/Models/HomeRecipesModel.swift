@@ -1,17 +1,28 @@
-import Foundation
 
+import SwiftUI
 
-struct RandomRecipes: Codable {
+struct RandomRecipes: Codable, Identifiable, Hashable {
+    let id: Int
     let recipes: [Recipe]
 }
 
 
 
-struct Recipe: Codable {
+// MARK: - Recipe
+struct Recipe: Codable, Identifiable, Hashable {
     let id: Int
     let title: String
-    let readyInMinutes: Int
-    let servings: Int
+    let spoonacularScore, healthScore, readyInMinutes, servings: Int
+    let aggregateLikes: Int
     let image: String
     let summary: String
+    let extendedIngredients: [ExtendedIngredient]
+    let instructions: String
+    let dishTypes: [String]
+}
+
+// MARK: - ExtendedIngredient
+struct ExtendedIngredient: Codable, Identifiable, Hashable {
+    let id: Int
+    let originalString: String
 }

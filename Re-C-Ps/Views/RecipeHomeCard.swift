@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct RecipeHomeCard: View {
-    var recipe: Recipes
+    
+    var recipe: Recipe
+    
     var body: some View {
         
         VStack(alignment: .leading, spacing: 12){
@@ -17,7 +19,7 @@ struct RecipeHomeCard: View {
                 
                 Spacer(minLength: 0)
                 
-                Image(recipe.image)
+                Image(recipe.image.load())
                     .renderingMode(.original)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -33,7 +35,7 @@ struct RecipeHomeCard: View {
             HStack(spacing:12){
                 
                 Label(title:{
-                    Text(recipe.rating)
+                    Text(recipe.spoonacularScore)
                         .font(.caption)
                         .foregroundColor(Color(.white))
                     
@@ -44,19 +46,19 @@ struct RecipeHomeCard: View {
                 }
                 .padding(.vertical, 5)
                 .padding(.horizontal, 10)
-                .background(recipe.color.opacity(0.4))
+                .background(Color(.red).opacity(0.4))
                 .cornerRadius(5)
                 
-                Text(recipe.type)
+                Text(recipe.healthScore)
                     .font(.caption)
                     .foregroundColor(Color.white)
                     .padding(.vertical, 5)
                     .padding(.horizontal, 10)
-                    .background(recipe.color.opacity(0.4))
+                    .background(Color(.red).opacity(0.4))
                     .cornerRadius(5)
             }
             
-            Text(recipe.detail)
+            Text(recipe.summary)
                 .foregroundColor(.gray)
                 .lineLimit(8)
             
@@ -73,7 +75,7 @@ struct RecipeHomeCard: View {
                     
                 }
                 
-                Text("10 Likes")
+                Text("\(recipe.aggregateLikes)")
                     .font(.caption)
                     .foregroundColor(.gray)
                     .padding(.leading, -(4) * 6)
@@ -107,13 +109,31 @@ struct RecipeHomeCard: View {
         .padding(.horizontal)
         .frame(width: UIScreen.main.bounds.width / 2)
         .background(
-            Color(.orange).opacity(0.2)
+            Color("SecondaryColor").opacity(0.7)
                 .cornerRadius(25)
                 .padding(.top, 55)
                 .padding(.bottom, 15)
+                .shadow(color: .black, radius: 10, x: 5, y: 5)
+                .shadow(color: .white, radius: 10, x: -5, y: -5)
+
         )
-        
+                
     }
 }
 
 
+
+//MARK:- Functions
+extension String {
+    func load() -> UIImage{
+        do {
+            
+            guard let url = URL(string: self) else{return UIImage()}
+            let data = try Data(contentsOf: url)
+            return UIImage(data: data) ?? UIImage()
+            
+        } catch {
+            return UIImage()
+        }
+    }
+}

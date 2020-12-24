@@ -11,11 +11,13 @@ import SwiftUI
 
 
 struct HomeView: View {
-    @State private var randomRecipes = [Recipe]()
+   
+    @ObservedObject var homeVM = HomeRecipesVM()
     @State private var image = UIImage()
     
     
     @State private var searchRecipeTextField = ""
+    
     var body: some View {
        
         VStack{
@@ -46,7 +48,7 @@ struct HomeView: View {
                 
                 VStack {
                     
-                    HStack(spacing: 15){
+                    /*HStack(spacing: 15){
                         HStack(spacing:10){
                             Image(systemName: "magnifyingglass")
                                 .foregroundColor(.gray)
@@ -68,7 +70,7 @@ struct HomeView: View {
                                 
                         }
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal)*/
                     
                     HStack(spacing:15){
                         Text("Top Recipes")
@@ -84,19 +86,10 @@ struct HomeView: View {
                         
                         HStack(spacing:15){
                             
-                            ForEach(recipes,id: \.title){recipe
-                                in
+                            ForEach(homeVM.randomRecipes){recipe in
                                 
-                                GeometryReader {geometry in
-                                    
-                                    RecipeHomeCard(recipe: recipe)
-                                        .rotation3DEffect(Angle(degrees:
-                                            (Double(geometry.frame(in: .global).minX) - 20) / -20
-                                        ),
-                                            axis: (x: 0.0, y: 10.0, z: 0.0)
-                                    )
-                                }
-                                .frame(width: UIScreen.main.bounds.width / 2, height: 390)
+                                RecipeHomeCard(recipe: recipe)
+                                
                             }
                             
                         }
@@ -117,48 +110,19 @@ struct HomeView: View {
         
     }
     
-    /*func loadRandomRecipes(){
-        guard let url = URL(string: "https://api.spoonacular.com/recipes/random?\(apiKey)&number=1") else {return}
-        
-        let request = URLRequest(url: url)
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let data = data{
-                if let decodedeResponse = try? JSONDecoder().decode(RandomRecipes.self, from: data){
-                    DispatchQueue.main.async {
-                        self.randomRecipes = decodedeResponse.recipes
-                    }
-                    return
-                }
-            }
-            
-            print("fetch failed")
-        }.resume()
-        
-    }*/
+    
     
     
     
 }
 
-//MARK:- Functions
-extension String {
-    func load() -> UIImage{
-        do {
-            
-            guard let url = URL(string: self) else{return UIImage()}
-            let data = try Data(contentsOf: url)
-            return UIImage(data: data) ?? UIImage()
-            
-        } catch {
-            return UIImage()
-        }
-    }
-}
 
 
 
 
+
+
+//MARK:- Preview
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
