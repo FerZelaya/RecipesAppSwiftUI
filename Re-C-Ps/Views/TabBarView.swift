@@ -29,15 +29,15 @@ struct TabBarView: View {
             
             HStack(spacing:0){
                 
-                TabBarButton(title: "Home", image: "home", selected: $current)
+                TabBarButton(title: "Home", image: "house", selected: $current)
                 
                 Spacer(minLength: 0)
                 
-                TabBarButton(title: "Categories", image: "categories", selected: $current)
+                TabBarButton(title: "Categories", image: "tablecells", selected: $current)
                 
                 Spacer(minLength: 0)
                 
-                TabBarButton(title: "Saved", image: "saved", selected: $current)
+                TabBarButton(title: "Saved", image: "square.and.arrow.down", selected: $current)
                 
                 
                 
