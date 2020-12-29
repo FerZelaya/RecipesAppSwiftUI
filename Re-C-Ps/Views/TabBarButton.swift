@@ -21,11 +21,12 @@ struct TabBarButton: View {
             
             HStack(spacing:0){
                 
-                Image(image)
+                Image(systemName: "\(image)")
                     .resizable()
                     .renderingMode(.template)
                     .frame(width: 25, height: 25)
                     .foregroundColor(.white)
+                    .padding(.horizontal,5)
                   
                 if selected == title{
                     Text(title)
