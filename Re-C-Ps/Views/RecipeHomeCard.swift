@@ -23,7 +23,6 @@ struct RecipeHomeCard: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(height: 200)
                 .cornerRadius(15)
-                .padding(.horizontal)
             
             
             HStack {
@@ -61,7 +60,6 @@ struct RecipeHomeCard: View {
                 
                 
             }
-            .padding(.horizontal)
             
             
         }
