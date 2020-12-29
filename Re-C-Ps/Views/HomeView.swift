@@ -11,8 +11,11 @@ import SwiftUI
 
 
 struct HomeView: View {
+    
+    var columns = (Array(repeating: GridItem(.flexible(), spacing: 15), count: 2),spacing: 15)
    
     @ObservedObject var homeVM = HomeRecipesVM()
+    
     @State private var image = UIImage()
     
     
@@ -33,6 +36,8 @@ struct HomeView: View {
                 
                 Spacer(minLength: 0)
                 
+                
+                
                 Button(action:{}){
                     Image("profile")
                         .renderingMode(.original)
@@ -42,6 +47,7 @@ struct HomeView: View {
             }
             .padding([.horizontal, .bottom])
             .padding(.top, 10)
+            
             
             
             ScrollView(.vertical, showsIndicators: false){
@@ -82,20 +88,37 @@ struct HomeView: View {
                     }
                     .padding()
                     
-                    ScrollView(.horizontal, showsIndicators: false){
-                        
-                        HStack(spacing:15){
+                    
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 15), count: 2),spacing: 15){
+                     
+                        ForEach(Rrecipes){recipe in
                             
-                            ForEach(homeVM.randomRecipes){recipe in
-                                
+                            NavigationLink(destination: HomeRecipeDetaileView()) {
                                 RecipeHomeCard(recipe: recipe)
-                                
                             }
                             
                         }
-                        .padding(.horizontal)
                         
                     }
+                    .padding()
+                    .padding(.top, 10)
+                    
+                    
+                    //Old card
+//                    ScrollView(.horizontal, showsIndicators: false){
+//
+//                        HStack(spacing:15){
+//
+//                            ForEach(homeVM.randomRecipes){recipe in
+//
+//                                RecipeHomeCard(recipe: recipe)
+//
+//                            }
+//
+//                        }
+//                        .padding(.horizontal)
+//
+//                    }
                     
                 }
             }
@@ -109,10 +132,6 @@ struct HomeView: View {
         
         
     }
-    
-    
-    
-    
     
 }
 

@@ -12,9 +12,9 @@ class HomeRecipesVM: ObservableObject{
     
     @Published var randomRecipes = [Recipe]()
     
-    init() {
-        loadRandomRecipes()
-    }
+//    init() {
+//        loadRandomRecipes()
+//    }
     
     func loadRandomRecipes(){
         guard let url = URL(string: "\(randomRecipeURL)\(apiKey)&number=9") else {return}
@@ -22,14 +22,19 @@ class HomeRecipesVM: ObservableObject{
         let request = URLRequest(url: url)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else {return}
-            guard let decodedRecipes = try? JSONDecoder().decode(RandomRecipes.self, from: data) else {return}
-            
-            DispatchQueue.main.async {
-                self.randomRecipes = decodedRecipes.recipes
+            if let error = error{
+                print("Fetch failed \(error.localizedDescription)")
+            } else {
+                guard let data = data else {return}
+                guard let decodedRecipes = try? JSONDecoder().decode(RandomRecipes.self, from: data) else { return }
+                print(decodedRecipes.recipes.count)
+                DispatchQueue.main.async {
+                    self.randomRecipes = decodedRecipes.recipes
+                }
             }
             
-            print("fetch failed")
+            
+            
         }.resume()
         
     }
