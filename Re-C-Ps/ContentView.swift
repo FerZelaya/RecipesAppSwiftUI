@@ -13,7 +13,11 @@ struct ContentView: View {
     }
     
     var body: some View {
-        TabBarView()
+        NavigationView {
+            TabBarView()
+        }
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
 }
 

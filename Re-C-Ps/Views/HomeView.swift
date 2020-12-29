@@ -13,17 +13,18 @@ import SwiftUI
 struct HomeView: View {
     
     var columns = (Array(repeating: GridItem(.flexible(), spacing: 15), count: 2),spacing: 15)
-   
+    
     @ObservedObject var homeVM = HomeRecipesVM()
     
     @State private var image = UIImage()
+    
+    @State var like = true
     
     
     @State private var searchRecipeTextField = ""
     
     var body: some View {
-       
-        NavigationView {
+        
             VStack{
                 
                 HStack{
@@ -32,7 +33,7 @@ struct HomeView: View {
                         Image(systemName: "line.horizontal.3")
                             .font(.title)
                             .foregroundColor(.white)
-                            
+                        
                     }
                     
                     Spacer(minLength: 0)
@@ -41,8 +42,9 @@ struct HomeView: View {
                     
                     Button(action:{}){
                         Image("profile")
-                            .renderingMode(.original)
-                            .cornerRadius(5)
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .clipShape(Capsule())
                     }
                     
                 }
@@ -74,14 +76,14 @@ struct HomeView: View {
                                     .foregroundColor(Color(.white))
                                     .background(Color("SecondaryColor").opacity(0.9))
                                     .cornerRadius(15)
-                                    
+                                
                             }
                         }
                         .padding(.horizontal)
                         
                         HStack(spacing:15){
                             Text("Top Recipes")
-                                .font(.largeTitle)
+                                .font(.custom("Helvetica", fixedSize: 35))
                                 .fontWeight(.bold)
                                 .foregroundColor(Color("SecondaryColor"))
                             
@@ -90,38 +92,36 @@ struct HomeView: View {
                         .padding()
                         
                         
-                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 15), count: 2),spacing: 15){
-                         
-                            ForEach(Rrecipes){recipe in
-                                
-                                NavigationLink(destination: HomeRecipeDetaileView()) {
-                                    RecipeHomeCard(recipe: recipe)
-                                }
-                                .navigationBarTitle("")
-                                .navigationBarHidden(true)
-                                
+                        ForEach(Rrecipes){recipe in
+                            
+                            NavigationLink(destination: HomeRecipeDetaileView()) {
+                                RecipeHomeCard(recipe: recipe, like: $like)
                             }
+                            .navigationBarTitle("")
+                            .navigationBarHidden(true)
                             
                         }
+                        
+                        
                         .padding()
                         .padding(.top, 10)
                         
                         
                         //Old card
-    //                    ScrollView(.horizontal, showsIndicators: false){
-    //
-    //                        HStack(spacing:15){
-    //
-    //                            ForEach(homeVM.randomRecipes){recipe in
-    //
-    //                                RecipeHomeCard(recipe: recipe)
-    //
-    //                            }
-    //
-    //                        }
-    //                        .padding(.horizontal)
-    //
-    //                    }
+                        //                    ScrollView(.horizontal, showsIndicators: false){
+                        //
+                        //                        HStack(spacing:15){
+                        //
+                        //                            ForEach(homeVM.randomRecipes){recipe in
+                        //
+                        //                                RecipeHomeCard(recipe: recipe)
+                        //
+                        //                            }
+                        //
+                        //                        }
+                        //                        .padding(.horizontal)
+                        //
+                        //                    }
                         
                     }
                 }
@@ -130,7 +130,7 @@ struct HomeView: View {
                 
             }
             .background(Color("Background").ignoresSafeArea(.all, edges: .all))
-        }
+        
         
         
         

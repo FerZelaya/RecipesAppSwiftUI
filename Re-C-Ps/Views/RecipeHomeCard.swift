@@ -11,29 +11,58 @@ struct RecipeHomeCard: View {
     
     var recipe: Recipe
     
+    @Binding var like: Bool
+    
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 6){
+        VStack(alignment: .leading){
             
-            ZStack{
+
+            Image(recipe.image)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(height: 200)
+                .cornerRadius(15)
+                .padding(.horizontal)
+            
+            
+            HStack {
                 
-                Color("PrimaryGreen")
-                    .cornerRadius(15)
+                VStack(spacing:10) {
+                    
+                    Text(recipe.title)
+                        .font(.custom("Helvetica", size: 25))
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                    
+                    HStack(spacing: 5) {
+                        
+                        Image(systemName: "clock")
+                            .foregroundColor(.gray)
+                        
+                        Text("\(recipe.spoonacularScore) min")
+                            .font(.subheadline)
+                            .fontWeight(.heavy)
+                            .foregroundColor(.gray)
+                    }
+                    
+                }
                 
-                Image(recipe.image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .padding(10)
+                Spacer(minLength: 0)
+                
+                Button(action: {
+                    like.toggle()
+                }){
+                    Image(systemName: like ? "heart.fill" : "heart")
+                        .font(.title)
+                        .foregroundColor(.white)
+                }
+                
+                
                 
             }
+            .padding(.horizontal)
             
-            Text(recipe.title)
-                .fontWeight(.heavy)
-                .foregroundColor(.gray)
-            
-            Text("\(recipe.spoonacularScore)")
-                .fontWeight(.heavy)
-                .foregroundColor(Color("SecondaryColor"))
             
         }
     }
