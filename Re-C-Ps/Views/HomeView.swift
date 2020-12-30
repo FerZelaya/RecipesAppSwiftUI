@@ -40,8 +40,9 @@ struct HomeView: View {
                 Button(action:{}){
                     Image("profile")
                         .resizable()
-                        .frame(width: 30, height: 30)
+                        .frame(width: 40, height: 40)
                         .clipShape(Capsule())
+                        .shadow(color: .black, radius: 5, x: 1, y: 1)
                 }
                 
             }
@@ -120,6 +121,7 @@ struct HomeView: View {
                     
                 }
             }
+            
             
             Spacer(minLength: 0)
             
