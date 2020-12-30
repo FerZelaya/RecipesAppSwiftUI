@@ -24,30 +24,40 @@ struct HomeView: View {
         
         VStack{
             
-            HStack{
-                
-                Button(action: {}){
-                    Image(systemName: "line.horizontal.3")
-                        .font(.title)
-                        .foregroundColor(Color(.label))
+            ZStack {
+                HStack{
+                    
+                    Button(action: {}){
+                        Image(systemName: "line.horizontal.3")
+                            .font(.title)
+                            .foregroundColor(Color(.label))
+                        
+                    }
+                    
+                    Spacer(minLength: 0)
+                    
+                    
+                    
+                    Button(action:{}){
+                        Image("profile")
+                            .resizable()
+                            .renderingMode(.original)
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 40, height: 40)
+                            .clipShape(Capsule())
+                    }
                     
                 }
+                .padding([.horizontal, .bottom])
+                .padding(.top, 10)
                 
-                Spacer(minLength: 0)
-                
-                
-                
-                Button(action:{}){
-                    Image("profile")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .clipShape(Capsule())
-                        .shadow(color: .black, radius: 5, x: 1, y: 1)
-                }
+                Text("HOME")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color(.label))
+                    
                 
             }
-            .padding([.horizontal, .bottom])
-            .padding(.top, 10)
             
             
             

@@ -24,7 +24,7 @@ struct RecipeHomeCard: View {
                     .cornerRadius(15)
                     
                 Rectangle()
-                    .fill(Color.black.opacity(0.09))
+                    .fill(Color.black.opacity(0.1))
                     .blendMode(.multiply)
                     .cornerRadius(15)
                 
