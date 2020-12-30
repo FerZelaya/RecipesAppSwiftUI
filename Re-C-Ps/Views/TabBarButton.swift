@@ -25,19 +25,19 @@ struct TabBarButton: View {
                     .resizable()
                     .renderingMode(.template)
                     .frame(width: 25, height: 25)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("SecondaryColor"))
                     .padding(.horizontal,5)
                   
                 if selected == title{
                     Text(title)
                         .fontWeight(.bold)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color("SecondaryColor"))
                 }
                 
             }
             .padding(.vertical,10)
             .padding(.horizontal)
-            .background(Color.white.opacity(selected == title ? 0.08 : 0))
+            .background(Color("SecondaryColor").opacity(selected == title ? 0.3 : 0))
             .clipShape(Capsule())
         }
         

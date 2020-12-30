@@ -18,9 +18,6 @@ struct HomeView: View {
     
     @State private var image = UIImage()
     
-    @State var like = false
-    
-    
     @State private var searchRecipeTextField = ""
     
     var body: some View {
@@ -32,7 +29,7 @@ struct HomeView: View {
                 Button(action: {}){
                     Image(systemName: "line.horizontal.3")
                         .font(.title)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(.label))
                     
                 }
                 
@@ -65,7 +62,7 @@ struct HomeView: View {
                             TextField("Search Recipe", text: $searchRecipeTextField)
                             
                         }
-                        .padding()
+                        .padding(15)
                         .background(Color(.systemGray2))
                         .cornerRadius(15)
                         
@@ -95,14 +92,12 @@ struct HomeView: View {
                     ForEach(Rrecipes){recipe in
                         
                         NavigationLink(destination: HomeRecipeDetaileView()) {
-                            RecipeHomeCard(recipe: recipe, like: $like)
+                            RecipeHomeCard(recipe: recipe)
                         }
                         .navigationBarTitle("")
                         .navigationBarHidden(true)
                         
                     }
-                    
-                    
                     .padding()
                     .padding(.top, 10)
                     

@@ -9,20 +9,59 @@ import SwiftUI
 
 struct RecipeHomeCard: View {
     
-    var recipe: Recipe
-    
-    @Binding var like: Bool
+    @State var recipe: Recipe
     
     var body: some View {
         
         VStack(alignment: .leading){
             
 
-            Image(recipe.image)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(height: 200)
-                .cornerRadius(15)
+            ZStack {
+                Image(recipe.image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(height: 230)
+                    .cornerRadius(15)
+                    
+                Rectangle()
+                    .fill(Color.black.opacity(0.09))
+                    .blendMode(.multiply)
+                    .cornerRadius(15)
+                
+                VStack{
+                    
+                    HStack{
+                        
+                        Spacer(minLength: 0)
+                        
+                        HStack {
+                            Image(systemName: "star.fill")
+                                .font(.system(size: 15))
+                                .foregroundColor(Color("SecondaryColor"))
+                            
+                            Text("\(recipe.spoonacularScore)")
+                                .font(.system(size: 15))
+                                .fontWeight(.bold)
+                                .foregroundColor(Color(.black))
+                        }
+                        .padding(.vertical, 10)
+                        .padding(.horizontal, 14)
+                        .background(Color(.white))
+                        .clipShape(Capsule())
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                    Spacer(minLength: 0)
+                    
+                }
+                .padding()
+                .clipped()
+                
+            }
             
             
             HStack {
@@ -32,17 +71,17 @@ struct RecipeHomeCard: View {
                     Text(recipe.title)
                         .font(.custom("Helvetica", size: 25))
                         .fontWeight(.bold)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(.label))
                     
                     HStack(spacing: 5) {
                         
                         Image(systemName: "clock")
                             .foregroundColor(.gray)
                         
-                        Text("\(recipe.spoonacularScore) min")
+                        Text("\(recipe.readyInMinutes) min")
                             .font(.subheadline)
                             .fontWeight(.heavy)
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color(.secondaryLabel))
                     }
                     
                 }
@@ -50,11 +89,11 @@ struct RecipeHomeCard: View {
                 Spacer(minLength: 0)
                 
                 Button(action: {
-                    like.toggle()
+                    recipe.liked.toggle()
                 }){
-                    Image(systemName: like ? "heart.fill" : "heart")
+                    Image(systemName: recipe.liked ? "heart.fill" : "heart")
                         .font(.title)
-                        .foregroundColor(.white)
+                        .foregroundColor(recipe.liked ? Color("SecondaryColor") : Color(.label))
                 }
                 
                 

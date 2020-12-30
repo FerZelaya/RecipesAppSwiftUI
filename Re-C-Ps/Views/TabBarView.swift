@@ -48,6 +48,7 @@ struct TabBarView: View {
             .clipShape(Capsule())
             .padding(.horizontal,25)
             
+            
         }
         
     }
