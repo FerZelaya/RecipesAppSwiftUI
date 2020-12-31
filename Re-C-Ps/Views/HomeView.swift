@@ -102,32 +102,18 @@ struct HomeView: View {
                     
                     ForEach(Rrecipes){recipe in
                         
-                        NavigationLink(destination: HomeRecipeDetaileView()) {
+                        NavigationLink(destination: RecipeDetailView(selectedRecipe: recipe)) {
                             RecipeHomeCard(recipe: recipe)
                         }
                         .navigationBarTitle("")
                         .navigationBarHidden(true)
+                        
                         
                     }
                     .padding()
                     .padding(.top, 10)
                     
                     
-                    //Old card
-                    //                    ScrollView(.horizontal, showsIndicators: false){
-                    //
-                    //                        HStack(spacing:15){
-                    //
-                    //                            ForEach(homeVM.randomRecipes){recipe in
-                    //
-                    //                                RecipeHomeCard(recipe: recipe)
-                    //
-                    //                            }
-                    //
-                    //                        }
-                    //                        .padding(.horizontal)
-                    //
-                    //                    }
                     
                 }
             }

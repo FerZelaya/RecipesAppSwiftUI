@@ -19,6 +19,7 @@ struct TabBarView: View {
                 HomeView()
                     .tag("Home")
                 
+                
                 Text("Categories")
                     .tag("Categories")
                 

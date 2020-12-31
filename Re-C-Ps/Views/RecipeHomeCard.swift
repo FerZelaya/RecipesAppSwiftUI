@@ -20,7 +20,7 @@ struct RecipeHomeCard: View {
                 Image(recipe.image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(height: 230)
+                    .frame(height: 200)
                     .cornerRadius(15)
                     
                 Rectangle()

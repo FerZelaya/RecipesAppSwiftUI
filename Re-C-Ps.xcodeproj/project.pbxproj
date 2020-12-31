@@ -11,7 +11,8 @@
 		705D3B83258D1E8100AAE701 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705D3B82258D1E8100AAE701 /* TabBarView.swift */; };
 		705D3B86258D208000AAE701 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705D3B85258D208000AAE701 /* ContentView.swift */; };
 		705D3B89258D212B00AAE701 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705D3B88258D212B00AAE701 /* TabBarButton.swift */; };
-		70A719532596C37600E0B2E7 /* HomeRecipeDetaileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A719522596C37600E0B2E7 /* HomeRecipeDetaileView.swift */; };
+		708CF041259E643100EF698D /* CustomBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CF040259E643100EF698D /* CustomBackButton.swift */; };
+		70A719532596C37600E0B2E7 /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A719522596C37600E0B2E7 /* RecipeDetailView.swift */; };
 		70A8B3632589163200AA55FE /* HomeRecipesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A8B3622589163200AA55FE /* HomeRecipesModel.swift */; };
 		70A8B36825891BFC00AA55FE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A8B36725891BFC00AA55FE /* Constants.swift */; };
 		70A8BCBC25910AB300A742F8 /* HomeRecipesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A8BCBB25910AB300A742F8 /* HomeRecipesVM.swift */; };
@@ -26,7 +27,8 @@
 		705D3B82258D1E8100AAE701 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		705D3B85258D208000AAE701 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		705D3B88258D212B00AAE701 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
-		70A719522596C37600E0B2E7 /* HomeRecipeDetaileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRecipeDetaileView.swift; sourceTree = "<group>"; };
+		708CF040259E643100EF698D /* CustomBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackButton.swift; sourceTree = "<group>"; };
+		70A719522596C37600E0B2E7 /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
 		70A8B3622589163200AA55FE /* HomeRecipesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRecipesModel.swift; sourceTree = "<group>"; };
 		70A8B36725891BFC00AA55FE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		70A8BCBB25910AB300A742F8 /* HomeRecipesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRecipesVM.swift; sourceTree = "<group>"; };
@@ -64,7 +66,8 @@
 				705D3B82258D1E8100AAE701 /* TabBarView.swift */,
 				705D3B88258D212B00AAE701 /* TabBarButton.swift */,
 				70019F05258E76AB00906A52 /* RecipeHomeCard.swift */,
-				70A719522596C37600E0B2E7 /* HomeRecipeDetaileView.swift */,
+				70A719522596C37600E0B2E7 /* RecipeDetailView.swift */,
+				708CF040259E643100EF698D /* CustomBackButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -200,9 +203,10 @@
 				70E870A92586A49700893749 /* Re_C_PsApp.swift in Sources */,
 				70A8B3632589163200AA55FE /* HomeRecipesModel.swift in Sources */,
 				705D3B89258D212B00AAE701 /* TabBarButton.swift in Sources */,
-				70A719532596C37600E0B2E7 /* HomeRecipeDetaileView.swift in Sources */,
+				70A719532596C37600E0B2E7 /* RecipeDetailView.swift in Sources */,
 				705D3B83258D1E8100AAE701 /* TabBarView.swift in Sources */,
 				70A8B36825891BFC00AA55FE /* Constants.swift in Sources */,
+				708CF041259E643100EF698D /* CustomBackButton.swift in Sources */,
 				70A8BCBC25910AB300A742F8 /* HomeRecipesVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
