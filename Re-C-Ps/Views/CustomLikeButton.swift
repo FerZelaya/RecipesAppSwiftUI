@@ -1,23 +1,23 @@
 //
-//  CustomBackButton.swift
+//  CustomLikeButton.swift
 //  Re-C-Ps
 //
-//  Created by Alcides Zelaya on 12/31/20.
+//  Created by Alcides Zelaya on 1/1/21.
 //
 
 import SwiftUI
 
-struct CustomBackButton: View {
+struct CustomLikeButton: View {
     
-   var presentationMode: Binding<PresentationMode>
+    @Binding var liked: Bool
     
     var body: some View {
         
         Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
+            liked.toggle()
         }) {
             HStack {
-                Image(systemName: "chevron.backward")
+                Image(systemName: liked ? "heart.fill" : "heart")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 30, height: 30)
@@ -31,4 +31,3 @@ struct CustomBackButton: View {
         
     }
 }
-

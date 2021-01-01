@@ -15,19 +15,57 @@ struct RecipeDetailView: View {
     
     var body: some View {
         
-        ScrollView {
-            ZStack(alignment: .top){
+        ScrollView(.vertical, showsIndicators: false){
+            
+            ZStack{
+                
                 Image(selectedRecipe.image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
+                    .frame(width: 440, height: UIScreen.main.bounds.height / 3)
+                    .cornerRadius(40)
+                
+                VStack {
+                    
+                    HStack{
+                        
+                        CustomBackButton(presentationMode: presentationMode)
+                        
+                        Spacer(minLength: 0)
+                        
+                        CustomLikeButton(liked: self.$selectedRecipe.liked)
+                        
+                    }
+                    .padding(20)
+                    
+                    Spacer(minLength: 0)
+                }
+                .padding(.top, 10)
+                    
                     
             }
-            .edgesIgnoringSafeArea(.all)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: CustomBackButton(presentationMode: presentationMode))
+            
+            
+            
+            
             
         }
-        
+        .navigationBarBackButtonHidden(true)
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
+        .edgesIgnoringSafeArea(.top)
     }
     
+}
+
+
+
+
+//MARK: Preview
+struct RecipeDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            RecipeDetailView(selectedRecipe: egRecipe)
+        }
+    }
 }
