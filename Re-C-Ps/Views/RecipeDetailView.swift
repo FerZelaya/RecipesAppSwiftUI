@@ -40,7 +40,7 @@ struct RecipeDetailView: View {
                     
                     Spacer(minLength: 0)
                 }
-                .padding(.top, 10)
+                .padding(20)
                     
                     
             }
