@@ -19,11 +19,19 @@ struct RecipeDetailView: View {
             
             ZStack{
                 
-                Image(selectedRecipe.image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 440, height: UIScreen.main.bounds.height / 3)
-                    .cornerRadius(40)
+                GeometryReader {reader in
+                    Image(selectedRecipe.image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .offset(y: -reader.frame(in: .global).minY)
+                        .frame(width:UIScreen.main.bounds.width, height: reader.frame(in: .global).minY + 300)
+                        
+            
+                }
+                .frame(width: UIScreen.main.bounds.width, height: 300)
+                .customCornerRadius(25, corners: [.bottomLeft, .bottomRight])
+                
+                
                 
                 VStack {
                     
@@ -36,27 +44,39 @@ struct RecipeDetailView: View {
                         CustomLikeButton(liked: self.$selectedRecipe.liked)
                         
                     }
-                    .padding(20)
+                    .padding([.leading, .trailing],18)
+                    .padding(.top, 35)
                     
                     Spacer(minLength: 0)
                 }
-                .padding(20)
                     
                     
             }
             
-            
-            
-            
-            
         }
+        .edgesIgnoringSafeArea(.top)
+        .background(Color("Background"))
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle("")
         .navigationBarHidden(true)
-        .edgesIgnoringSafeArea(.top)
     }
     
 }
+
+
+
+
+
+//MARK: Extensions
+
+extension View {
+    func customCornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape(RoundedCorner(radius: radius, corners: corners) )
+    }
+}
+
+
+
 
 
 

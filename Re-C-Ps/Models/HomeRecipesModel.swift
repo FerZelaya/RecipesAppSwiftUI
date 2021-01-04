@@ -43,4 +43,4 @@ var Rrecipes = [
 ]
 
 
-var egRecipe = Recipe(id: 1, title: "Pasta", spoonacularScore: 30, healthScore: 28, readyInMinutes: 15, servings: 3, aggregateLikes: 10, image: "r1", summary: "qwerqwerqwerqwerqwerqwerqwerqwerqwerqwerqwerqwerqwerqwerqwerqwer qwer qwer qwerqwer qwer qewr qwer qer", extendedIngredients: [.init(id: 1, originalString: "123123123")], instructions: "123131231313123131231231231231231231", dishTypes: ["qwerqwer"], liked: false)
+var egRecipe = Recipe(id: 1, title: "Pasta", spoonacularScore: 30, healthScore: 28, readyInMinutes: 15, servings: 3, aggregateLikes: 10, image: "r3", summary: "qwerqwerqwerqwerqwerqwerqwerqwerqwerqwerqwerqwerqwerqwerqwerqwer qwer qwer qwerqwer qwer qewr qwer qer", extendedIngredients: [.init(id: 1, originalString: "123123123")], instructions: "123131231313123131231231231231231231", dishTypes: ["qwerqwer"], liked: false)
