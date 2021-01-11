@@ -19,17 +19,24 @@ struct RecipeDetailView: View {
             
             ZStack{
                 
-                GeometryReader {reader in
-                    Image(selectedRecipe.image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .offset(y: -reader.frame(in: .global).minY)
-                        .frame(width:UIScreen.main.bounds.width, height: reader.frame(in: .global).minY + 300)
-                        
-            
+                GeometryReader {reader -> AnyView in
+                    
+                    let offset = reader.frame(in: .global).minY
+                    
+                    return AnyView(
+                        Image(selectedRecipe.image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: UIScreen.main.bounds.width, height: 300 + (offset > 0 ? offset : 0))
+                            .offset(y: (offset > 0 ? -offset : 0))
+                    )
+                    
+                    
+                    
                 }
-                .frame(width: UIScreen.main.bounds.width, height: 300)
+                .frame(height: 300)
                 .customCornerRadius(25, corners: [.bottomLeft, .bottomRight])
+                .edgesIgnoringSafeArea(.top)
                 
                 
                 
@@ -49,16 +56,55 @@ struct RecipeDetailView: View {
                     
                     Spacer(minLength: 0)
                 }
-                    
-                    
+                
+                
             }
             
+            
+            VStack(alignment: .leading, spacing: 3){
+                HStack {
+                    Text(selectedRecipe.title)
+                        .font(.largeTitle)
+                        .bold()
+                        .lineLimit(0)
+                    
+                    Spacer(minLength: 0)
+                }
+                
+                Text(selectedRecipe.summary)
+                    .font(.custom("", size: 18))
+                    .foregroundColor(Color(.systemGray))
+                    .lineLimit(10)
+                
+                HStack(spacing:5) {
+                    Image(systemName: "star.fill")
+                        .font(.system(size: 20))
+                        .foregroundColor(Color("SecondaryColor"))
+                    
+                    Text("\(selectedRecipe.spoonacularScore)")
+                        .font(.system(size: 20))
+                        .fontWeight(.bold)
+                        .foregroundColor(Color(.label))
+                    
+                    Text("(\(selectedRecipe.aggregateLikes) likes)")
+                        .font(.custom("", size: 18))
+                        .foregroundColor(Color(.systemGray))
+                        .padding(.horizontal,2)
+                }
+                .padding(.top, 35)
+                
+                
+                
+                
+            }
+            .padding(.horizontal,30)
+            
+            
         }
-        .edgesIgnoringSafeArea(.top)
         .background(Color("Background"))
         .navigationBarBackButtonHidden(true)
-        .navigationBarTitle("")
         .navigationBarHidden(true)
+        .edgesIgnoringSafeArea(.all)
     }
     
 }
