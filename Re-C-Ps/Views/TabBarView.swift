@@ -18,13 +18,19 @@ struct TabBarView: View {
                 
                 HomeView()
                     .tag("Home")
+                    .navigationBarTitle(Text(""))
+                    .navigationBarHidden(true)
                 
                 
                 Text("Categories")
                     .tag("Categories")
+                    .navigationBarTitle(Text(""))
+                    .navigationBarHidden(true)
                 
                 Text("Saved")
                     .tag("Saved")
+                    .navigationBarTitle(Text(""))
+                    .navigationBarHidden(true)
                 
             }
             

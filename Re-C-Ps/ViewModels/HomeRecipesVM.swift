@@ -11,31 +11,47 @@ import SwiftUI
 class HomeRecipesVM: ObservableObject{
     
     @Published var randomRecipes = [Recipe]()
+    @Published var finishedLoading = false
+    @Published var errorMessage = ""
     
-//    init() {
-//        loadRandomRecipes()
-//    }
+    init() {
+        finishedLoading = false
+        errorMessage = ""
+        loadRandomRecipes()
+    }
     
     func loadRandomRecipes(){
-        guard let url = URL(string: "\(randomRecipeURL)\(apiKey)&number=9") else {return}
-        
+        finishedLoading = false
+        guard let url = URL(string: "\(randomRecipeURL)\(apiKey)&number=4") else {return}
+        print(url)
         let request = URLRequest(url: url)
         
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let error = error{
-                print("Fetch failed \(error.localizedDescription)")
-            } else {
-                guard let data = data else {return}
-                guard let decodedRecipes = try? JSONDecoder().decode(RandomRecipes.self, from: data) else { return }
-                print(decodedRecipes.recipes.count)
-                DispatchQueue.main.async {
-                    self.randomRecipes = decodedRecipes.recipes
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let error = error {
+                print(error)
+                return
+            }
+            if let data = data {
+                do {
+                    let recipesFetched = try jsonDecoder.decode(RandomRecipes.self, from: data)
+                    DispatchQueue.main.async {
+                        self.randomRecipes = recipesFetched.recipes
+                        self.finishedLoading = true
+                    }
+                } catch let jsonError as NSError {
+                    DispatchQueue.main.async {
+                        self.errorMessage = jsonError.localizedDescription
+                        self.finishedLoading = true
+                    }
+                    print("JSON decode failed: \(jsonError.localizedDescription)")
                 }
             }
             
             
             
-        }.resume()
+        }
+        task.resume()
         
     }
     

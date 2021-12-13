@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Lottie
 
 
 
@@ -19,6 +20,7 @@ struct HomeView: View {
     @State private var image = UIImage()
     
     @State private var searchRecipeTextField = ""
+    
     
     var body: some View {
         
@@ -55,7 +57,7 @@ struct HomeView: View {
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(Color(.label))
-                    
+                
                 
             }
             
@@ -65,53 +67,65 @@ struct HomeView: View {
                 
                 VStack {
                     
-                    HStack(spacing: 15){
-                        HStack(spacing:10){
-                            Image(systemName: "magnifyingglass")
-                                .foregroundColor(.gray)
-                            
-                            TextField("Search Recipe", text: $searchRecipeTextField)
-                            
-                        }
-                        .padding(15)
-                        .background(Color(.systemGray2))
-                        .cornerRadius(15)
-                        
-                        
-                        Button(action:{}){
-                            Image(systemName: "slider.horizontal.3")
-                                .padding()
-                                .foregroundColor(Color(.white))
-                                .background(Color("SecondaryColor").opacity(0.9))
-                                .cornerRadius(15)
-                            
-                        }
-                    }
-                    .padding(.horizontal)
+//                    HStack(spacing: 15){
+//                        HStack(spacing:10){
+//                            Image(systemName: "magnifyingglass")
+//                                .foregroundColor(.gray)
+//
+//                            TextField("Search Recipe", text: $searchRecipeTextField)
+//
+//                        }
+//                        .padding(15)
+//                        .background(Color(.systemGray2))
+//                        .cornerRadius(15)
+//
+//
+//                        Button(action:{}){
+//                            Image(systemName: "slider.horizontal.3")
+//                                .padding()
+//                                .foregroundColor(Color(.white))
+//                                .background(Color("SecondaryColor").opacity(0.9))
+//                                .cornerRadius(15)
+//
+//                        }
+//                    }
+//                    .padding(.horizontal)
                     
                     HStack(spacing:15){
-                        Text("Top Recipes")
+                        Text("Random Recipes")
                             .font(.custom("Helvetica", fixedSize: 35))
                             .fontWeight(.bold)
                             .foregroundColor(Color("SecondaryColor"))
-                        
-                        Spacer(minLength: 0)
                     }
-                    .padding()
                     
                     
-                    ForEach(Rrecipes){recipe in
-                        
-                        NavigationLink(destination: RecipeDetailView(selectedRecipe: recipe)) {
-                            RecipeHomeCard(recipe: recipe)
+                    if(homeVM.finishedLoading){
+                        if(homeVM.errorMessage != ""){
+                            Text(homeVM.errorMessage)
+                                .font(.custom("Helvetica", fixedSize: 25))
+                                .fontWeight(.bold)
+                                .padding()
+                        } else {
+                            ForEach(homeVM.randomRecipes){recipe in
+                                
+                                NavigationLink(destination: RecipeDetailView(selectedRecipe: recipe)) {
+                                    RecipeHomeCard(recipe: recipe)
+                                }
+                                .navigationBarTitle("")
+                                .navigationBarHidden(true)
+                                
+                                
+                            }
+                            .padding()
+                            .padding(.top, 10)
                         }
-                        .navigationBarTitle("")
-                        .navigationBarHidden(true)
-                        
-                        
+                    } else {
+                        LottieView(filename: "loading")
+                            .frame(width: 200, height: 200)
                     }
-                    .padding()
-                    .padding(.top, 10)
+                    
+                    
+                    
                     
                     
                     
@@ -143,6 +157,7 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             HomeView()
+                .preferredColorScheme(.dark)
         }
     }
 }

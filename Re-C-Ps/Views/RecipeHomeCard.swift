@@ -17,11 +17,18 @@ struct RecipeHomeCard: View {
             
 
             ZStack {
-                Image(recipe.image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(height: 200)
-                    .cornerRadius(15)
+                AsyncImage(url: URL(string: recipe.image)) {image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                } placeholder: {
+                    Color.purple.opacity(0.1)
+                }
+                .frame(height: 200)
+                .cornerRadius(15)
+//                   .aspectRatio(contentMode: .fill)
+//                    .frame(height: 200)
+//                    .cornerRadius(15)
                     
                 Rectangle()
                     .fill(Color.black.opacity(0.1))
@@ -66,12 +73,13 @@ struct RecipeHomeCard: View {
             
             HStack {
                 
-                VStack(spacing:10) {
+                VStack(alignment: .leading, spacing: 15) {
                     
                     Text(recipe.title)
-                        .font(.custom("Helvetica", size: 25))
+                        .font(.custom("Helvetica", size: 20))
                         .fontWeight(.bold)
                         .foregroundColor(Color(.label))
+                        .lineLimit(1)
                     
                     HStack(spacing: 5) {
                         
@@ -88,13 +96,13 @@ struct RecipeHomeCard: View {
                 
                 Spacer(minLength: 0)
                 
-                Button(action: {
-                    recipe.liked.toggle()
-                }){
-                    Image(systemName: recipe.liked ? "heart.fill" : "heart")
-                        .font(.title)
-                        .foregroundColor(recipe.liked ? Color("SecondaryColor") : Color(.label))
-                }
+//                Button(action: {
+//                    recipe.liked.toggle()
+//                }){
+//                    Image(systemName: recipe.liked ? "heart.fill" : "heart")
+//                        .font(.title)
+//                        .foregroundColor(recipe.liked ? Color("SecondaryColor") : Color(.label))
+//                }
                 
                 
                 

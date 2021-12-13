@@ -16,10 +16,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             TabBarView()
-            
         }
-        .navigationBarTitle("")
-        .navigationBarHidden(true)
         
     }
 }
@@ -27,5 +24,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .preferredColorScheme(.dark)
     }
 }

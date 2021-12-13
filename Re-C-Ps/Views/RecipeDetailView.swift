@@ -24,11 +24,20 @@ struct RecipeDetailView: View {
                     let offset = reader.frame(in: .global).minY
                     
                     return AnyView(
-                        Image(selectedRecipe.image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
+                        AsyncImage(url: URL(string: selectedRecipe.image)) {image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                        } placeholder: {
+                            Color.purple.opacity(0.1)
+                        }
                             .frame(width: UIScreen.main.bounds.width, height: 300 + (offset > 0 ? offset : 0))
                             .offset(y: (offset > 0 ? -offset : 0))
+                        //                        Image(selectedRecipe.image)
+                        //                            .resizable()
+                        //                            .aspectRatio(contentMode: .fill)
+                        //                            .frame(width: UIScreen.main.bounds.width, height: 300 + (offset > 0 ? offset : 0))
+                        //                            .offset(y: (offset > 0 ? -offset : 0))
                     )
                     
                     
@@ -47,8 +56,8 @@ struct RecipeDetailView: View {
                         CustomBackButton(presentationMode: presentationMode)
                         
                         Spacer(minLength: 0)
-                        
-                        CustomLikeButton(liked: self.$selectedRecipe.liked)
+                        //
+                        //                        CustomLikeButton(liked: self.$selectedRecipe.liked)
                         
                     }
                     .padding([.leading, .trailing],18)
@@ -64,17 +73,18 @@ struct RecipeDetailView: View {
             VStack(alignment: .leading, spacing: 3){
                 HStack {
                     Text(selectedRecipe.title)
-                        .font(.largeTitle)
+                        .font(.title)
                         .bold()
-                        .lineLimit(0)
+                        .lineLimit(5)
                     
                     Spacer(minLength: 0)
                 }
+                .padding(.bottom, 10)
                 
                 Text(selectedRecipe.summary)
-                    .font(.custom("", size: 18))
+                    .font(.custom("", size: 20))
                     .foregroundColor(Color(.systemGray))
-                    .lineLimit(10)
+                    .lineLimit(15)
                 
                 HStack(spacing:5) {
                     Image(systemName: "star.fill")
@@ -93,11 +103,20 @@ struct RecipeDetailView: View {
                 }
                 .padding(.top, 35)
                 
+                Text("Instructions:")
+                    .font(.title2)
+                    .bold()
+                
+                Text(selectedRecipe.instructions)
+                    .font(.custom("", size: 20))
+                    .foregroundColor(Color(.systemGray))
+                    .lineLimit(15)
+                
                 
                 
                 
             }
-            .padding(.horizontal,30)
+            .padding(.horizontal,17)
             
             
         }
@@ -127,11 +146,11 @@ extension View {
 
 
 
-//MARK: Preview
-struct RecipeDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            RecipeDetailView(selectedRecipe: egRecipe)
-        }
-    }
-}
+////MARK: Preview
+//struct RecipeDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            RecipeDetailView(selectedRecipe: egRecipe)
+//        }
+//    }
+//}

@@ -9,7 +9,7 @@ import Foundation
 
 let homeTitle = "Re-C-Ps"
 
-let apiKey = "apiKey=1946d8a5bfe945e3a2ae213440081fde"
+let apiKey = "apiKey=2eaa7e4cea1f4feca8a990a1a117e229"
 let randomRecipeURL = "https://api.spoonacular.com/recipes/random?"
 
 let tabs = ["Home", "Categories", "Saved"]
