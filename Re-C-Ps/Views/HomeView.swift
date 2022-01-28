@@ -17,6 +17,8 @@ struct HomeView: View {
     
     @ObservedObject var homeVM = HomeRecipesVM()
     
+    @ObservedObject var topRecipesVM = TopRecipesVM()
+    
     @State private var image = UIImage()
     
     @State private var searchRecipeTextField = ""
@@ -66,53 +68,28 @@ struct HomeView: View {
             ScrollView(.vertical, showsIndicators: false){
                 
                 VStack {
-                    
-//                    HStack(spacing: 15){
-//                        HStack(spacing:10){
-//                            Image(systemName: "magnifyingglass")
-//                                .foregroundColor(.gray)
-//
-//                            TextField("Search Recipe", text: $searchRecipeTextField)
-//
-//                        }
-//                        .padding(15)
-//                        .background(Color(.systemGray2))
-//                        .cornerRadius(15)
-//
-//
-//                        Button(action:{}){
-//                            Image(systemName: "slider.horizontal.3")
-//                                .padding()
-//                                .foregroundColor(Color(.white))
-//                                .background(Color("SecondaryColor").opacity(0.9))
-//                                .cornerRadius(15)
-//
-//                        }
-//                    }
-//                    .padding(.horizontal)
-                    
                     HStack(spacing:15){
-                        Text("Random Recipes")
+                        Text("Top Recipes")
                             .font(.custom("Helvetica", fixedSize: 35))
                             .fontWeight(.bold)
                             .foregroundColor(Color("SecondaryColor"))
                     }
                     
                     
-                    if(homeVM.finishedLoading){
-                        if(homeVM.errorMessage != ""){
-                            Text(homeVM.errorMessage)
+                    if(topRecipesVM.finishedLoading){
+                        if(topRecipesVM.errorMessage != ""){
+                            Text(topRecipesVM.errorMessage)
                                 .font(.custom("Helvetica", fixedSize: 25))
                                 .fontWeight(.bold)
                                 .padding()
                         } else {
-                            ForEach(homeVM.randomRecipes){recipe in
-                                
-                                NavigationLink(destination: RecipeDetailView(selectedRecipe: recipe)) {
+                            ForEach(topRecipesVM.topRecipes, id: \.trackingID){recipe in
+                                NavigationLink(destination: RecipeDetailView(selectedRecipe: recipe)){
                                     RecipeHomeCard(recipe: recipe)
                                 }
-                                .navigationBarTitle("")
+                                .navigationBarBackButtonHidden(true)
                                 .navigationBarHidden(true)
+                                .navigationTitle("")
                                 
                                 
                             }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RecipeHomeCard: View {
     
-    @State var recipe: Recipe
+    @State var recipe: Feed
     
     var body: some View {
         
@@ -17,7 +17,7 @@ struct RecipeHomeCard: View {
             
 
             ZStack {
-                AsyncImage(url: URL(string: recipe.image)) {image in
+                AsyncImage(url: URL(string: recipe.display.images[0])) {image in
                     image
                         .resizable()
                         .scaledToFill()
@@ -46,7 +46,7 @@ struct RecipeHomeCard: View {
                                 .font(.system(size: 15))
                                 .foregroundColor(Color("SecondaryColor"))
                             
-                            Text("\(recipe.spoonacularScore)")
+                            Text("\(recipe.content.details.rating)")
                                 .font(.system(size: 15))
                                 .fontWeight(.bold)
                                 .foregroundColor(Color(.black))
@@ -75,7 +75,7 @@ struct RecipeHomeCard: View {
                 
                 VStack(alignment: .leading, spacing: 15) {
                     
-                    Text(recipe.title)
+                    Text(recipe.display.displayName)
                         .font(.custom("Helvetica", size: 20))
                         .fontWeight(.bold)
                         .foregroundColor(Color(.label))
@@ -86,7 +86,7 @@ struct RecipeHomeCard: View {
                         Image(systemName: "clock")
                             .foregroundColor(.gray)
                         
-                        Text("\(recipe.readyInMinutes) min")
+                        Text(recipe.content.details.totalTime)
                             .font(.subheadline)
                             .fontWeight(.heavy)
                             .foregroundColor(Color(.secondaryLabel))

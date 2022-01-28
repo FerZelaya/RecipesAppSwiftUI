@@ -11,7 +11,8 @@ struct RecipeDetailView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var selectedRecipe: Recipe
+    @State var selectedRecipe: Feed
+    
     
     var body: some View {
         
@@ -24,7 +25,7 @@ struct RecipeDetailView: View {
                     let offset = reader.frame(in: .global).minY
                     
                     return AnyView(
-                        AsyncImage(url: URL(string: selectedRecipe.image)) {image in
+                        AsyncImage(url: URL(string: selectedRecipe.display.images[0])) {image in
                             image
                                 .resizable()
                                 .scaledToFill()
@@ -33,11 +34,6 @@ struct RecipeDetailView: View {
                         }
                             .frame(width: UIScreen.main.bounds.width, height: 300 + (offset > 0 ? offset : 0))
                             .offset(y: (offset > 0 ? -offset : 0))
-                        //                        Image(selectedRecipe.image)
-                        //                            .resizable()
-                        //                            .aspectRatio(contentMode: .fill)
-                        //                            .frame(width: UIScreen.main.bounds.width, height: 300 + (offset > 0 ? offset : 0))
-                        //                            .offset(y: (offset > 0 ? -offset : 0))
                     )
                     
                     
@@ -72,7 +68,7 @@ struct RecipeDetailView: View {
             
             VStack(alignment: .leading, spacing: 3){
                 HStack {
-                    Text(selectedRecipe.title)
+                    Text(selectedRecipe.display.displayName)
                         .font(.title)
                         .bold()
                         .lineLimit(5)
@@ -81,39 +77,58 @@ struct RecipeDetailView: View {
                 }
                 .padding(.bottom, 10)
                 
-                Text(selectedRecipe.summary)
-                    .font(.custom("", size: 20))
-                    .foregroundColor(Color(.systemGray))
-                    .lineLimit(15)
-                
-                HStack(spacing:5) {
-                    Image(systemName: "star.fill")
-                        .font(.system(size: 20))
-                        .foregroundColor(Color("SecondaryColor"))
+                HStack(spacing: 10) {
+                    HStack(spacing:5) {
+                        Image(systemName: "star.fill")
+                            .font(.system(size: 20))
+                            .foregroundColor(Color("SecondaryColor"))
+                        
+                        Text("\(selectedRecipe.content.details.rating)")
+                            .font(.system(size: 20))
+                            .fontWeight(.bold)
+                            .foregroundColor(Color(.label))
+                    }
+                    Spacer()
+                    HStack(spacing: 5) {
+                        
+                        Image(systemName: "clock")
+                            .foregroundColor(.gray)
+                        
+                        Text(selectedRecipe.content.details.totalTime)
+                            .font(.subheadline)
+                            .fontWeight(.heavy)
+                            .foregroundColor(Color(.secondaryLabel))
+                    }
                     
-                    Text("\(selectedRecipe.spoonacularScore)")
-                        .font(.system(size: 20))
-                        .fontWeight(.bold)
-                        .foregroundColor(Color(.label))
-                    
-                    Text("(\(selectedRecipe.aggregateLikes) likes)")
-                        .font(.custom("", size: 18))
-                        .foregroundColor(Color(.systemGray))
-                        .padding(.horizontal,2)
                 }
-                .padding(.top, 35)
+                .padding(.bottom, 10)
+                
+                Text("Ingredients:")
+                    .font(.title2)
+                    .bold()
+                    .padding(.top, 10)
+                
+                ForEach(selectedRecipe.content.ingredientLines.indices, id: \.self){index in
+                    Text(selectedRecipe.content.ingredientLines[index].wholeLine)
+                        .font(.custom("", size: 20))
+                        .foregroundColor(Color(.systemGray))
+                        .lineLimit(15)
+                        .padding(.vertical, 3)
+                }
                 
                 Text("Instructions:")
                     .font(.title2)
                     .bold()
-                
-                Text(selectedRecipe.instructions)
-                    .font(.custom("", size: 20))
-                    .foregroundColor(Color(.systemGray))
-                    .lineLimit(15)
+                    .padding(.top, 10)
                 
                 
-                
+                ForEach(selectedRecipe.content.preparationSteps.indices, id: \.self){index in
+                    Text("\(index+1): \(selectedRecipe.content.preparationSteps[index])")
+                        .font(.custom("", size: 20))
+                        .foregroundColor(Color(.systemGray))
+                        .lineLimit(15)
+                        .padding(.vertical, 15)
+                }
                 
             }
             .padding(.horizontal,17)
@@ -123,6 +138,7 @@ struct RecipeDetailView: View {
         .background(Color("Background"))
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
+        .navigationTitle("")
         .edgesIgnoringSafeArea(.all)
     }
     

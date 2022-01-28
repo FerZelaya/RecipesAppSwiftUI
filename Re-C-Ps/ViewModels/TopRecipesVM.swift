@@ -1,30 +1,34 @@
 //
-//  HomeRecipesVM.swift
+//  TopRecipesVM.swift
 //  Re-C-Ps
 //
-//  Created by Alcides Zelaya on 12/21/20.
 //
 
 import Foundation
 import SwiftUI
 
-class HomeRecipesVM: ObservableObject{
+class TopRecipesVM: ObservableObject{
     
-    @Published var randomRecipes = [Recipe]()
-    @Published var finishedLoading = false
+    @Published var topRecipes = [Feed]()
+    @Published var finishedLoading = true
     @Published var errorMessage = ""
     
-//    init() {
-//        finishedLoading = false
-//        errorMessage = ""
-//        loadRandomRecipes()
-//    }
+    let headers = [
+        "x-rapidapi-host": "yummly2.p.rapidapi.com",
+        "x-rapidapi-key": yummlyKey
+    ]
     
-    func loadRandomRecipes(){
+    init() {
         finishedLoading = false
-        guard let url = URL(string: "\(randomRecipeURL)\(apiKey)&number=4") else {return}
-        print(url)
-        let request = URLRequest(url: url)
+        errorMessage = ""
+        loadTopRecipes()
+    }
+    
+    func loadTopRecipes(){
+        finishedLoading = false
+        guard let url = URL(string: feedListURL) else {return}
+        var request = URLRequest(url: url)
+        request.allHTTPHeaderFields = headers
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             let jsonDecoder = JSONDecoder()
@@ -34,9 +38,9 @@ class HomeRecipesVM: ObservableObject{
             }
             if let data = data {
                 do {
-                    let recipesFetched = try jsonDecoder.decode(RandomRecipes.self, from: data)
+                    let recipesFetched = try jsonDecoder.decode(TopRecipes.self, from: data)
                     DispatchQueue.main.async {
-                        self.randomRecipes = recipesFetched.recipes
+                        self.topRecipes = recipesFetched.feed
                         self.finishedLoading = true
                     }
                 } catch let jsonError as NSError {
@@ -44,7 +48,7 @@ class HomeRecipesVM: ObservableObject{
                         self.errorMessage = jsonError.localizedDescription
                         self.finishedLoading = true
                     }
-                    print("JSON decode failed: \(jsonError.localizedDescription)")
+                    print(String(describing: jsonError))
                 }
             }
             
